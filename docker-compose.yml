@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  nuxt:
+    # Dockerfileの場所
+    build: ./docker/nuxt
+    tty: true
+    # コンテナ起動時のコマンド
+    command: npm run dev
+    # ホストOSとコンテナ内でソースコードを共有
+    volumes:
+      - ./nuxt_code:/app
+    # コンテナ内部の3000を外部から８０８０でアクセス
+    ports:
+      - 80:80
