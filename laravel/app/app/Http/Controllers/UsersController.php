@@ -30,16 +30,21 @@ class UsersController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function register() {
-        return view('Users.register');
+        // return view('Users.register');
+        return response()->json(['name' => '山田太郎', 'gender' => '男','mail' => 'yamada@test.com']);
     }
 
-    public function registerConfirm(UserRegister $request) {
+    public function registerConfirm(Request $request) {
         $userInfo = new UserRegisterInputData($request->name, $request->email, $request->password);
         $userInteractor = new UserInteractor();
         $outputData = $userInteractor->register($userInfo);
+
+        //validation result
+        if ($outputData->getError()) {
+            return response()->json(['error_message' => $outputData->getError()->getMessage()]);
+        }
         $currentUserId = $outputData->getId();
-        $request->session()->put('currentUserId', $currentUserId);
-        return redirect('/home');
+        return response()->json(['currentUserId' => $currentUserId]);
     }
 
     public function login() {

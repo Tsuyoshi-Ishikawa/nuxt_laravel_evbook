@@ -16,6 +16,8 @@ composer install
 php artisan key:generate
 php artisan config:cache
 php artisan serve
+php artisan migrate
+php artisan db:seed
 
 - アクセス
 docker psでコンテナを見て2345のportのhostを叩く

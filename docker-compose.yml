@@ -6,10 +6,12 @@ services:
     build: ./docker/nuxt
     tty: true
     # コンテナ起動時のコマンド
-    command: npm run dev
+    #command: npm run dev
+    #shでないとコンテナに入れない
+    command: sh -c "npm install && npm run dev"
     # ホストOSとコンテナ内でソースコードを共有
     volumes:
       - ./nuxt_code:/app
-    # コンテナ内部の3000を外部から８０８０でアクセス
+    # コンテナ内部の80を外部から80でアクセス
     ports:
       - 80:80

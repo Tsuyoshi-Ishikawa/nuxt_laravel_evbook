@@ -10,7 +10,7 @@ RUN apk update && \
     npm install -g npm && \
     npm install -g vue-cli
 
-#ENVでhostに値を割り当てることで、host名がそれになる、つまりその値で叩かないといけない
-#docker psしてPORTSを確認すると、どうやってつなげば良いかわかる
+#ENVでhostを0000にすることでどこからでも叩けるようになる?
+# またdockerfileでhostやportを変更した場合は、nuxt.config.jsでhostとportの変更を記述しないといけない
 ENV HOST 0.0.0.0
 EXPOSE 80

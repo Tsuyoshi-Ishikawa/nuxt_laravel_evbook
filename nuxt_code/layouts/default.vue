@@ -1,8 +1,30 @@
 <template>
+
   <div>
+    <v-card v-if="isLogin == 0" @click="register">register</v-card>
+    <v-card v-if="isLogin == 0" @click="login">login</v-card>
+    <v-card v-if="isLogin != 0">logout</v-card>
     <Nuxt />
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    isLogin () {
+      return this.$store.state.current_user_id
+    }
+  },
+  methods: {
+    register: function () {
+      this.$router.push('/users/register')
+    },
+    login: function () {
+      this.$router.push('/users/login')
+    }
+  }
+}
+</script>
 
 <style>
 html {
@@ -58,5 +80,15 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+
+.container {
+  margin: 0 auto;
+  min-height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 </style>

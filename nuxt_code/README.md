@@ -1,5 +1,18 @@
 # nuxt_code
 
+## 設定
+dockerfileでhostとport設定をしたので、nuxtで受け取れるように変更する
+
+```javascript
+
+  //nuxt.config.js
+  server: {
+    port: 80, // デフォルト: 3000
+    host: '0.0.0.0' // デフォルト: localhost
+  }
+  
+```
+
 ## Build Setup
 
 ```bash

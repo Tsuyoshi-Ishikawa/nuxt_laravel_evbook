@@ -10,9 +10,16 @@ use Exception;
 
 class EloquentUserRepository implements UserRepository {
     public function save(User $user) {
+        //validation
+        $email = $user->getUserEmail();
+        if ($modelUser = UserORM::where('email', $email)->first()) {
+            $user->setError(new Exception('email should be unique'));
+            return;
+        }
+
         $UserORM = new UserORM;
         $UserORM->name = $user->getUserName();
-        $UserORM->email = $user->getUserEmail();
+        $UserORM->email = $email;
         $UserORM->password = Hash::make($user->getUserPass());
         $UserORM->save();
         $user->setUserId($UserORM->id);

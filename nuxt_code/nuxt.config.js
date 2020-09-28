@@ -25,13 +25,49 @@ export default {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
+    '@nuxtjs/vuetify'
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy'
   ],
+
+  //バックエンドのipを指定する
+  axios: {
+    baseURL: 'http://0.0.0.0:23450/api',
+  },
+
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL: process.env.BROWSER_BASE_URL
+  //   }
+  // },
+
+  // privateRuntimeConfig: {
+  //   axios: {
+  //     baseURL: process.env.BASE_URL
+  //   }
+  // },
+
+  // axios: {
+  //   proxy: true // Can be also an object with default options
+  // },
+
+  // proxy: {
+  //   '/api/': 'http://0.0.0.0:23450/api'
+  // },
+
+
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+  },
+
+  server: {
+    //dockerfileでhostとport設定をしたので、nuxtで受け取れるように変更する
+    port: 80, // デフォルト: 3000
+    host: '0.0.0.0' // デフォルト: localhost
   }
 }

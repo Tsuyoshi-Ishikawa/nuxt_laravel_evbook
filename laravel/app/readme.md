@@ -39,5 +39,8 @@ DB_DATABASE=default
 DB_USERNAME=default
 DB_PASSWORD=secret
 
+corsの問題(nuxtからlaravelに繋げない)を解決するために自前のmiddlewareを作成し、受け入れ態勢を整えた。
+Middleware/Cors.php
+
 ## 参考文献
 https://qiita.com/nrslib/items/a5f902c4defc83bd46b8
