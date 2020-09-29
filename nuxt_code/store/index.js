@@ -12,6 +12,25 @@ export const actions = {
     } catch (error) {
       const messages = error.response.data.message;
     }
+  },
+  async login({ commit }, data) {
+    try {
+      const res = await this.$axios.$post('http://0.0.0.0:23450/api/login', data);
+      if (res.error_message) {
+        //commitでmutationを発動、第二引数にmutationで使う引数
+        commit('setErrorMsg', res.error_message)
+      } else {
+        commit('setCurrentUserId', res.currentUserId)
+        console.log(res.currentUserId)
+        this.$router.push('/users/home')
+      }
+    } catch (error) {
+      const messages = error.response.data.message;
+    }
+  },
+  async logout({ commit }) {
+    commit('resetCurrentUserId')
+    this.$router.push('/')
   }
 }
 
@@ -23,6 +42,10 @@ export const mutations = {
 
   setCurrentUserId(state, current_user_id) {
     state.current_user_id = current_user_id
+  },
+
+  resetCurrentUserId(state) {
+    state.current_user_id = 0
   }
 }
 

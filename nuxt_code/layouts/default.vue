@@ -3,12 +3,14 @@
   <div>
     <v-card v-if="isLogin == 0" @click="register">register</v-card>
     <v-card v-if="isLogin == 0" @click="login">login</v-card>
-    <v-card v-if="isLogin != 0">logout</v-card>
+    <v-card v-if="isLogin != 0" @click="logout">logout</v-card>
     <Nuxt />
   </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   computed: {
     isLogin () {
@@ -21,7 +23,8 @@ export default {
     },
     login: function () {
       this.$router.push('/users/login')
-    }
+    },
+    ...mapActions(["logout"])
   }
 }
 </script>

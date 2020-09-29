@@ -29,11 +29,6 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function register() {
-        // return view('Users.register');
-        return response()->json(['name' => '山田太郎', 'gender' => '男','mail' => 'yamada@test.com']);
-    }
-
     public function registerConfirm(Request $request) {
         $userInfo = new UserRegisterInputData($request->name, $request->email, $request->password);
         $userInteractor = new UserInteractor();
@@ -47,28 +42,17 @@ class UsersController extends Controller
         return response()->json(['currentUserId' => $currentUserId]);
     }
 
-    public function login() {
-        return view('Users.login');
-    }
-
-    public function loginConfirm(UserLogin $request) {
+    public function loginConfirm(Request $request) {
         $userInfo = new UserLoginInputData($request->email, $request->password);
         $userInteractor = new UserInteractor();
         $outputData = $userInteractor->login($userInfo);
 
         //validation result
         if ($outputData->getError()) {
-            $request->session()->flash('error', $outputData->getError()->getMessage());
-            return view('Users.login');
+            return response()->json(['error_message' => $outputData->getError()->getMessage()]);
         }
         $currentUserId = $outputData->getId();
-        $request->session()->put('currentUserId', $currentUserId);
-        return redirect('/home');
-    }
-
-    public function logout(Request $request) {
-        $request->session()->forget('currentUserId');
-        return redirect('/');
+        return response()->json(['currentUserId' => $currentUserId]);
     }
 
     public function home(Request $request) {

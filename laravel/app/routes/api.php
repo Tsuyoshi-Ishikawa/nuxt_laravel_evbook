@@ -22,6 +22,10 @@ Route::middleware(['cors'])->group(function () {
     Route::options('/register', function () {
         return response()->json();
     });
+    Route::options('/login', function () {
+        return response()->json();
+    });
 
     Route::post('/register', 'UsersController@registerConfirm')->name('Users.registerConfirm');
+    Route::post('/login', 'UsersController@loginConfirm')->name('Users.loginConfirm');
 });

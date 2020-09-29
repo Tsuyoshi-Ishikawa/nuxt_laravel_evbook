@@ -2,11 +2,54 @@
   <div class="container">
     <div>
       <h1>login</h1>
+      <p>{{ isError }}</p>
         <v-form>
-          <v-text-field label="メールアドレス" v-model="registerPostData.email" :rules="[rules.required, rules.mail]"></v-text-field>
-          <v-text-field label="パスワード" v-model="registerPostData.password" :rules="[rules.required, rules.min]" :append-icon="registerConfig.passShow ? 'mdi-eye': 'mdi-eye-off'" :type="registerConfig.passShow ? 'text': 'password'" @click:append="registerConfig.passShow = !registerConfig.passShow"></v-text-field>
-          <v-btn @click="register(registerPostData)">ボタン</v-btn>
+          <v-text-field label="メールアドレス" v-model="loginPostData.email" :rules="[rules.required, rules.mail]"></v-text-field>
+          <v-text-field label="パスワード" v-model="loginPostData.password" :rules="[rules.required, rules.min]" :append-icon="loginConfig.passShow ? 'mdi-eye': 'mdi-eye-off'" :type="loginConfig.passShow ? 'text': 'password'" @click:append="loginConfig.passShow = !loginConfig.passShow"></v-text-field>
+          <v-btn @click="login(loginPostData)">ボタン</v-btn>
         </v-form>
     </div>
   </div>
 </template>
+
+<script>
+import { mapActions } from "vuex";
+
+export default {
+  data() {
+    return {
+      loginConfig: {
+        passShow: false,
+        passConfShow: false
+      },
+      loginPostData: {
+        email: null,
+        password: null,
+      },
+      rules: {
+        // vはinputの中身、||で左側の処理がうまく行くかを判定し、ダメならバリデーションエラーの結果表示の右側を出す
+        // ここではうまく行っているのかいないのかの判定のみで、バリデーションは行ってくれない
+        //バリデーションは自前で作らんといかんhttps://jp.vuejs.org/v2/cookbook/form-validation.html
+        required: v => !!v || "入力してください",
+        mail: v => v == /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ || "メアドを入れてください",
+        min: v => String(v).length >= 8 || "パスワードを8文字以上にしてください"
+      },
+    }
+  },
+  computed: {
+    isError () {
+      //これでindex.jsのstateを見にいく
+      return this.$store.state.error_message
+    }
+  },
+  //mapStateを使ってhtml表示するならば、this.data.error = this.error_messageという代入が必要になる
+  // computed: mapState([
+  // // map this.count to store.state.error_message
+  // 'error_message'
+  // ]),
+  methods: {
+    //mapActionsとすることで、index.jsの定数actionで定義されているメソッドloginを駆動?
+    ...mapActions(["login"])
+  },
+}
+</script>
