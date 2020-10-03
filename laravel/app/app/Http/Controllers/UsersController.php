@@ -43,6 +43,7 @@ class UsersController extends Controller
     }
 
     public function loginConfirm(Request $request) {
+        clock("loginConfirmのrequest is {$request}");
         $userInfo = new UserLoginInputData($request->email, $request->password);
         $userInteractor = new UserInteractor();
         $outputData = $userInteractor->login($userInfo);
@@ -56,15 +57,30 @@ class UsersController extends Controller
     }
 
     public function home(Request $request) {
-        $currentUserId = $request->session()->get('currentUserId');
+        if ($authResult = $this->auth($request)) return $authResult;
+
+        $currentUserId = $request->currentUserId;
         $userInteractor = new UserInteractor();
         $outputData = $userInteractor->getAllWords($currentUserId);
         $words = $outputData->getAllWords();
-        return view('Users.home')->with([
-            'currentUserId' => $currentUserId,
-            'words' => $words,
-        ]);
+        return response()->json(['words' => $words]);
+
+        // return view('Users.home')->with([
+        //     'currentUserId' => $currentUserId,
+        //     'words' => $words,
+        // ]);
     }
+
+    // public function home(Request $request) {
+    //     $currentUserId = $request->session()->get('currentUserId');
+    //     $userInteractor = new UserInteractor();
+    //     $outputData = $userInteractor->getAllWords($currentUserId);
+    //     $words = $outputData->getAllWords();
+    //     return view('Users.home')->with([
+    //         'currentUserId' => $currentUserId,
+    //         'words' => $words,
+    //     ]);
+    // }
 
     //ユーザー検索機能(cleanArcでは未実装)
     // public function search() {

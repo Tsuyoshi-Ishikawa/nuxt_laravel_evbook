@@ -14,12 +14,14 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        //元はこっち、こっちでも問題なさそうだが自前で作成
+        //元はこっち、こっちでも問題なさそうだがapi用に修正
         // if (! $request->expectsJson()) {
         //     return route('login');
         // }
-        if (! $request->session()->get('currentUserId')) {
-            return route('Users.login');
+
+        //結局これは使わないことになった
+        if ($request->current_user_id == 0) {
+            return response()->json(['error_message' => 'You need register or login', 'isNotLogin' => true]);
         }
     }
 }

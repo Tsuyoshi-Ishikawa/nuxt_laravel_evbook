@@ -10,4 +10,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected function auth($request) {
+        if ($request->currentUserId == 0) {
+            return response()->json(['error_message' => 'You need register or login', 'isNotLogin' => true]);
+        }
+        return false;
+    }
 }
