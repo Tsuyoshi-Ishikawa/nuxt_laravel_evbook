@@ -28,10 +28,14 @@ Route::middleware(['cors'])->group(function () {
     Route::options('/home', function () {
         return response()->json();
     });
+    Route::options('/words', function () {
+        return response()->json();
+    });
 
     Route::post('/register', 'UsersController@registerConfirm')->name('Users.registerConfirm');
     Route::post('/login', 'UsersController@loginConfirm')->name('Users.loginConfirm');
 
     //middlewareを二重にしたcors_authを使用しようとしたが、うまくいかなかったのでauth(ログイン済かの判定はcontrollerで行う)
     Route::post('/home', 'UsersController@home')->name('Users.home');
+    Route::post('/words', 'WordsController@store')->name('Words.store');
 });

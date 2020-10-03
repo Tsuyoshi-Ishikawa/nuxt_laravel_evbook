@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>home</h1>
+    <p>{{ error_message }}</p>
     <table border="1">
       <tr v-for="word in words" :key="word.id">
         <td>{{ word.English }}</td>
@@ -13,9 +14,9 @@
     </table>
 
     <div>
-      <p><span @click="createWord()">英単語登録ページ</span></p>
-      <p><span @click="testWords()">英単語テストページ</span></p>
-      <p><span @click="indexWords()">英単語投稿一覧</span></p>
+      <p><span @click="getCreateWord()">英単語登録ページ</span></p>
+      <p><span @click="getTestWords()">英単語テストページ</span></p>
+      <p><span @click="getIndexWords()">英単語投稿一覧</span></p>
     </div>
   </div>
 </template>
@@ -36,7 +37,8 @@ export default {
   computed: mapState({
     //これで`state => state.count` と同じ意味になる
     //mapState内では、state === this.$store.state となる
-    words: "words"
+    words: "words",
+    error_message: "error_message"
   }),
 
 
@@ -46,8 +48,17 @@ export default {
     this.getHomeInfo(this.isLogin)
   },
   methods: {
+    getCreateWord: function () {
+      this.$router.push('/words/create')
+    },
+    getTestWords: function () {
+      this.$router.push('/words/test')
+    },
+    getIndexWords: function () {
+      this.$router.push('/words/index')
+    },
     //mapActionsとすることで、index.jsの定数actionで定義されているメソッドloginを駆動?
-    ...mapActions(["getHomeInfo","createWord", "editWord", "favoWord", "deleteWord", "testWords", "indexWords"])
+    ...mapActions(["getHomeInfo", "editWord", "favoWord", "deleteWord"])
   }
 }
 </script>

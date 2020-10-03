@@ -2,7 +2,7 @@
   <div class="container">
     <div>
       <h1>login</h1>
-      <p>{{ isError }}</p>
+      <p>{{ error_message }}</p>
         <v-form>
           <v-text-field label="メールアドレス" v-model="loginPostData.email" :rules="[rules.required, rules.mail]"></v-text-field>
           <v-text-field label="パスワード" v-model="loginPostData.password" :rules="[rules.required, rules.min]" :append-icon="loginConfig.passShow ? 'mdi-eye': 'mdi-eye-off'" :type="loginConfig.passShow ? 'text': 'password'" @click:append="loginConfig.passShow = !loginConfig.passShow"></v-text-field>
@@ -14,6 +14,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
   data() {
@@ -36,12 +37,11 @@ export default {
       },
     }
   },
-  computed: {
-    isError () {
-      //これでindex.jsのstateを見にいく
-      return this.$store.state.error_message
-    }
-  },
+  computed: mapState({
+    //これで`state => state.count` と同じ意味になる
+    //mapState内では、state === this.$store.state となる
+    error_message: "error_message"
+  }),
   //mapStateを使ってhtml表示するならば、this.data.error = this.error_messageという代入が必要になる
   // computed: mapState([
   // // map this.count to store.state.error_message

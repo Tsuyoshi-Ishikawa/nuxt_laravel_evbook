@@ -45,8 +45,21 @@ export const actions = {
       commit('setErrorMsg', error.message)
     }
   },
-  async createWord() {
-    this.$router.push('/words/create')
+  async getHome() {
+    this.$router.push('/users/home')
+  },
+  async createWord({ commit }, data) {
+    try {
+      const res = await this.$axios.$post('http://0.0.0.0:23450/api/words', data);
+      console.log(res)
+      if (res.error_message) {
+        commit('setErrorMsg', res.error_message)
+      } else {
+        this.$router.push('/users/home')
+      }
+    } catch (error) {
+      commit('setErrorMsg', error.message)
+    }
   },
   async editWord({ commit }, data) {
     // this.$router.push({ path: '/word/edit', params: { userId } })
@@ -54,12 +67,6 @@ export const actions = {
   async favoWord({ commit }, data) {
   },
   async deleteWord({ commit }, data) {
-  },
-  async testWords() {
-    this.$router.push('/words/test')
-  },
-  async indexWords() {
-    this.$router.push('/words/index')
   },
 }
 

@@ -2,7 +2,7 @@
   <div class="container">
       <div>
         <h1>register</h1>
-        <p>{{ isError }}</p>
+        <p>{{ error_message }}</p>
         <v-form>
           <!-- v-modelでdata()と結びつく、rulesでdata()のruleと結びついてエラーを表示 -->
           <!-- typeで要素の性質を決め、 @clickでイベントを駆動、イベントのメソッドはvueのmethodsで用意-->
@@ -19,6 +19,7 @@
 
 <script>
 import { mapActions } from "vuex";
+import { mapState } from 'vuex'
 
 export default {
   data() {
@@ -45,12 +46,11 @@ export default {
       },
     }
   },
-  computed: {
-    isError () {
-      //これでindex.jsのstateを見にいく
-      return this.$store.state.error_message
-    }
-  },
+  computed: mapState({
+    //これで`state => state.count` と同じ意味になる
+    //mapState内では、state === this.$store.state となる
+    error_message: "error_message"
+  }),
   //mapStateを使ってhtml表示するならば、this.data.error = this.error_messageという代入が必要になる
   // computed: mapState([
   // // map this.count to store.state.error_message

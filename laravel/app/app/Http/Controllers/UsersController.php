@@ -64,11 +64,6 @@ class UsersController extends Controller
         $outputData = $userInteractor->getAllWords($currentUserId);
         $words = $outputData->getAllWords();
         return response()->json(['words' => $words]);
-
-        // return view('Users.home')->with([
-        //     'currentUserId' => $currentUserId,
-        //     'words' => $words,
-        // ]);
     }
 
     // public function home(Request $request) {

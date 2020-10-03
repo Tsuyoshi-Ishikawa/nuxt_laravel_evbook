@@ -15,17 +15,30 @@ use App\Http\UseCases\Interactors\WordInteractor;
 
 class WordsController extends Controller
 {
-    public function create() {
-        return view('Words.create');
+    // public function create() {
+    //     return view('Words.create');
+    // }
+
+
+    public function store(Request $request) {
+        clock($request);
+        if ($authResult = $this->auth($request)) return $authResult;
+        return response()->json(['aaa' => "aaaa"]);
+
+        // $currentUserId = $request->session()->get('currentUserId');
+        // $inputData = new WordStoreInputData($currentUserId, $request->English, $request->Japanese);
+        // $wordInteractor = new WordInteractor();
+        // $wordInteractor->setValues($inputData);
+        // return redirect('/home');
     }
 
-    public function store(WordStore $request) {
-        $currentUserId = $request->session()->get('currentUserId');
-        $inputData = new WordStoreInputData($currentUserId, $request->English, $request->Japanese);
-        $wordInteractor = new WordInteractor();
-        $wordInteractor->setValues($inputData);
-        return redirect('/home');
-    }
+    // public function store(WordStore $request) {
+    //     $currentUserId = $request->session()->get('currentUserId');
+    //     $inputData = new WordStoreInputData($currentUserId, $request->English, $request->Japanese);
+    //     $wordInteractor = new WordInteractor();
+    //     $wordInteractor->setValues($inputData);
+    //     return redirect('/home');
+    // }
 
     public function edit(int $id) {
         $wordInteractor = new WordInteractor();
