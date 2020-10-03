@@ -11,6 +11,10 @@ import { mapActions } from "vuex";
 import { mapState } from 'vuex'
 
 export default {
+  created() {
+    this.resetError()
+    this.isSession()
+  },
   computed: mapState({
     //これで`state => state.count` と同じ意味になる
     //mapState内では、state === this.$store.state となる
@@ -18,7 +22,7 @@ export default {
   }),
   methods: {
     //mapActionsとすることで、index.jsの定数actionで定義されているメソッドloginを駆動?
-    ...mapActions(["getHome"])
+    ...mapActions(["getHome", "resetError", "isSession"])
   }
 }
 </script>

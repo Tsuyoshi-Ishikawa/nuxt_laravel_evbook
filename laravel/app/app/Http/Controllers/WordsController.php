@@ -21,15 +21,12 @@ class WordsController extends Controller
 
 
     public function store(Request $request) {
-        clock($request);
-        if ($authResult = $this->auth($request)) return $authResult;
-        return response()->json(['aaa' => "aaaa"]);
 
-        // $currentUserId = $request->session()->get('currentUserId');
-        // $inputData = new WordStoreInputData($currentUserId, $request->English, $request->Japanese);
-        // $wordInteractor = new WordInteractor();
-        // $wordInteractor->setValues($inputData);
-        // return redirect('/home');
+        $currentUserId = $request->userId;
+        $inputData = new WordStoreInputData($currentUserId, $request->English, $request->Japanese);
+        $wordInteractor = new WordInteractor();
+        $wordInteractor->setValues($inputData);
+        return response()->json(['response' => 'OK']);
     }
 
     // public function store(WordStore $request) {

@@ -4,8 +4,8 @@
     <h1>create word</h1>
     <p>{{ error_message }}</p>
     <v-form>
-      <v-text-field label="日本語" v-model="request.wordData.Japanese" :rules="[rules.required]"></v-text-field><v-text-field label="英語" v-model="request.wordData.English" :rules="[rules.required]"></v-text-field>
-      <v-btn @click="createWord(request)">作成</v-btn>
+      <v-text-field label="日本語" v-model="wordData.Japanese" :rules="[rules.required]"></v-text-field><v-text-field label="英語" v-model="wordData.English" :rules="[rules.required]"></v-text-field>
+      <v-btn @click="createWord(wordData)">作成</v-btn>
     </v-form>
   </div>
 </template>
@@ -17,17 +17,19 @@ import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      request: {
-        currentUserId: "aaa",
-        wordData: {
-          Japanese: null,
-          English: null
-        }
+      wordData: {
+        userId: this.$store.state.current_user_id,
+        Japanese: null,
+        English: null
       },
       rules: {
         required: v => !!v || "入力してください"
       },
     }
+  },
+  created() {
+    this.resetError()
+    this.isSession()
   },
   computed: mapState({
     //これで`state => state.count` と同じ意味になる
@@ -37,7 +39,7 @@ export default {
   }),
   methods: {
     //mapActionsとすることで、index.jsの定数actionで定義されているメソッドloginを駆動?
-    ...mapActions(["getHome", "createWord"])
+    ...mapActions(["getHome", "createWord", "resetError", "isSession"])
   }
 }
 </script>

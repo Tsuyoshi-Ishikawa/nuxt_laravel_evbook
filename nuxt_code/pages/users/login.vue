@@ -37,6 +37,9 @@ export default {
       },
     }
   },
+  created() {
+    this.resetError()
+  },
   computed: mapState({
     //これで`state => state.count` と同じ意味になる
     //mapState内では、state === this.$store.state となる
@@ -49,7 +52,7 @@ export default {
   // ]),
   methods: {
     //mapActionsとすることで、index.jsの定数actionで定義されているメソッドloginを駆動?
-    ...mapActions(["login"])
+    ...mapActions(["login", "resetError"])
   },
 }
 </script>

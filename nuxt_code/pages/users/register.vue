@@ -46,19 +46,17 @@ export default {
       },
     }
   },
+  created() {
+    this.resetError()
+  },
   computed: mapState({
     //これで`state => state.count` と同じ意味になる
     //mapState内では、state === this.$store.state となる
     error_message: "error_message"
   }),
-  //mapStateを使ってhtml表示するならば、this.data.error = this.error_messageという代入が必要になる
-  // computed: mapState([
-  // // map this.count to store.state.error_message
-  // 'error_message'
-  // ]),
   methods: {
     //mapActionsとすることで、index.jsの定数actionで定義されているメソッドregisterを駆動?
-    ...mapActions(["register"])
+    ...mapActions(["register", "resetError"])
   },
 }
 </script>

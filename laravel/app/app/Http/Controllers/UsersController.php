@@ -57,7 +57,7 @@ class UsersController extends Controller
     }
 
     public function home(Request $request) {
-        if ($authResult = $this->auth($request)) return $authResult;
+        // if ($authResult = $this->auth($request)) return $authResult;
 
         $currentUserId = $request->currentUserId;
         $userInteractor = new UserInteractor();

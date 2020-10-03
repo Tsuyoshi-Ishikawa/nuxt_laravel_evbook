@@ -45,6 +45,8 @@ export default {
   //初期化的な内容、ページ読み込み時に発動するので便利
   //初期の値をとって表示させる
   created() {
+    this.resetError()
+    this.isSession()
     this.getHomeInfo(this.isLogin)
   },
   methods: {
@@ -58,7 +60,7 @@ export default {
       this.$router.push('/words/index')
     },
     //mapActionsとすることで、index.jsの定数actionで定義されているメソッドloginを駆動?
-    ...mapActions(["getHomeInfo", "editWord", "favoWord", "deleteWord"])
+    ...mapActions(["resetError","isSession","getHomeInfo", "editWord", "favoWord", "deleteWord"])
   }
 }
 </script>
