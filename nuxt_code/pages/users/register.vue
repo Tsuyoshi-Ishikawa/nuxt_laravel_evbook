@@ -39,7 +39,7 @@ export default {
         // ここではうまく行っているのかいないのかの判定のみで、バリデーションは行ってくれない
         //バリデーションは自前で作らんといかんhttps://jp.vuejs.org/v2/cookbook/form-validation.html
         required: v => !!v || "入力してください",
-        mail: v => v == /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/ || "メアドを入れてください",
+        mail: v => v == /[\w]+\@[\w]+\.[\w]+$/ || "メアドを入れてください",
         min: v => String(v).length >= 8 || "パスワードを8文字以上にしてください",
         match: v =>
           v === this.registerPostData.password || "パスワードが一致しません"

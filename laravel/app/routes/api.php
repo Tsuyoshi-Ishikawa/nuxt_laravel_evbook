@@ -19,13 +19,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware(['cors'])->group(function () {
     //プリフライとリクエスト(サーバがメソッドとヘッダをチェック)ではoptionをつけて受け取る準備をする必要あり
-    Route::options('/register', function () {
+    Route::options('/users/register', function () {
         return response()->json();
     });
-    Route::options('/login', function () {
+    Route::options('/users/login', function () {
         return response()->json();
     });
-    Route::options('/home', function () {
+    Route::options('/users/home', function () {
         return response()->json();
     });
     Route::options('/words', function () {
@@ -44,9 +44,9 @@ Route::middleware(['cors'])->group(function () {
         return response()->json();
     });
 
-    Route::post('/register', 'UsersController@registerConfirm')->name('Users.registerConfirm');
-    Route::post('/login', 'UsersController@loginConfirm')->name('Users.loginConfirm');
-    Route::post('/home', 'UsersController@home')->name('Users.home');
+    Route::post('/users/register', 'UsersController@registerConfirm')->name('Users.registerConfirm');
+    Route::post('/users/login', 'UsersController@loginConfirm')->name('Users.loginConfirm');
+    Route::post('/users/home', 'UsersController@home')->name('Users.home');
     Route::post('/words', 'WordsController@store')->name('Words.store');
     Route::put('/words', 'WordsController@update')->name('Words.update');
     // Route::delete('/words', 'WordsController@destroy')->name('Words.destroy');

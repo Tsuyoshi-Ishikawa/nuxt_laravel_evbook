@@ -1,7 +1,7 @@
 export const actions = {
   async register({ commit }, data) {
     try {
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/register', data);
+      const res = await this.$axios.$post('http://0.0.0.0:23450/api/users/register', data);
       if (res.error_message) {
         //commitでmutationを発動、第二引数にmutationで使う引数
         commit('setErrorMsg', res.error_message)
@@ -16,7 +16,7 @@ export const actions = {
   async login({ commit }, data) {
     try {
       console.log(data)
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/login', data);
+      const res = await this.$axios.$post('http://0.0.0.0:23450/api/users/login', data);
       if (res.error_message) {
         //commitでmutationを発動、第二引数にmutationで使う引数
         commit('setErrorMsg', res.error_message)
@@ -34,7 +34,7 @@ export const actions = {
   },
   async getHomeInfo({ commit }, data) {
     try {
-      const res = await this.$axios.$post('http://0.0.0.0:23450/api/home', data);
+      const res = await this.$axios.$post('http://0.0.0.0:23450/api/users/home', data);
       commit('setWords', res.words)
     } catch (error) {
       commit('setErrorMsg', error.message)
