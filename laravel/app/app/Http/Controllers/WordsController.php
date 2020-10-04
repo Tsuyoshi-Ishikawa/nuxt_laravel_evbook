@@ -64,15 +64,15 @@ class WordsController extends Controller
     }
 
     public function test(Request $request) {
-        $currentUserId = $request->session()->get('currentUserId');
+        $currentUserId = $request->currentUserId;
         $wordInteractor = new WordInteractor();
         $outputData = $wordInteractor->getRandWord($currentUserId);
 
+        //validation result
         if ($outputData->getError()) {
-            $request->session()->flash('error', $outputData->getError()->getMessage());
-            return redirect('/home');
+            return response()->json(['error_message' => $outputData->getError()->getMessage()]);
         }
-        return view('Words.test')->with('rand_word', $outputData);
+        return response()->json(['word' => ['Japanese' => $outputData->getJapanese(), 'English' => $outputData->getEnglish()]]);
     }
 
     public function index(Request $request) {

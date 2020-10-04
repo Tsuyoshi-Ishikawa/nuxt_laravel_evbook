@@ -35,12 +35,20 @@ export const actions = {
   async getHomeInfo({ commit }, data) {
     try {
       const res = await this.$axios.$post('http://0.0.0.0:23450/api/home', data);
+      commit('setWords', res.words)
+    } catch (error) {
+      commit('setErrorMsg', error.message)
+    }
+  },
+  async getTestInfo({ commit }, data) {
+    try {
+      const res = await this.$axios.$post('http://0.0.0.0:23450/api/words/test', data);
+      console.log(res)
       if (res.error_message) {
-        //commitでmutationを発動、第二引数にmutationで使う引数
         commit('setErrorMsg', res.error_message)
-        if (res.isNotLogin) this.$router.push('/users/register');
+        this.$router.push('/users/home')
       } else {
-        commit('setWords', res.words)
+        commit('setTestWord', res.word)
       }
     } catch (error) {
       commit('setErrorMsg', error.message)
@@ -86,6 +94,10 @@ export const mutations = {
     state.words = words
   },
 
+  setTestWord(state, word) {
+    state.test_word = word
+  },
+
   resetCurrentUserId(state) {
     state.current_user_id = 0
   },
@@ -105,5 +117,6 @@ export const mutations = {
 export const state = () => ({
   error_message: "",
   current_user_id: 0,
-  words: {}
+  words: {},
+  test_word: {}
 })
