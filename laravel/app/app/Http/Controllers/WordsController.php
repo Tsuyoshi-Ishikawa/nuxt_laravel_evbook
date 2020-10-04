@@ -16,18 +16,11 @@ use App\Http\UseCases\Interactors\WordInteractor;
 class WordsController extends Controller
 {
     public function store(Request $request) {
-
         $currentUserId = $request->userId;
         $inputData = new WordStoreInputData($currentUserId, $request->English, $request->Japanese);
         $wordInteractor = new WordInteractor();
         $wordInteractor->setValues($inputData);
         return response()->json(['response' => 'OK']);
-    }
-
-    public function edit(int $id) {
-        $wordInteractor = new WordInteractor();
-        $word = $wordInteractor->getWord($id);
-        return view('Words.edit')->with('word', $word);
     }
 
     public function update(Request $request) {
@@ -40,16 +33,30 @@ class WordsController extends Controller
     }
 
     public function destroy(Request $request) {
-        $currentUserId = $request->session()->get('currentUserId');
-        $inputData = new WordDeleteInputData($currentUserId, $request->id);
+        $currentUserId = $request->userId;
+        $wordId = $request->wordId;
+        $inputData = new WordDeleteInputData($currentUserId, $wordId);
         $wordInteractor = new WordInteractor();
         $outputData = $wordInteractor->deleteValues($inputData);
 
+        //validation result
         if ($outputData->getError()) {
-            $request->session()->flash('error', $outputData->getError()->getMessage());
-            return redirect('/home');
+            return response()->json(['error_message' => $outputData->getError()->getMessage()]);
         }
+        return response()->json(['word_id' => $wordId]);
     }
+
+    // public function destroy(Request $request) {
+    //     $currentUserId = $request->session()->get('currentUserId');
+    //     $inputData = new WordDeleteInputData($currentUserId, $request->id);
+    //     $wordInteractor = new WordInteractor();
+    //     $outputData = $wordInteractor->deleteValues($inputData);
+
+    //     if ($outputData->getError()) {
+    //         $request->session()->flash('error', $outputData->getError()->getMessage());
+    //         return redirect('/home');
+    //     }
+    // }
 
     public function test(Request $request) {
         $currentUserId = $request->currentUserId;

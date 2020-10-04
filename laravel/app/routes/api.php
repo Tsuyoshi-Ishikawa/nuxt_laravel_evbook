@@ -31,6 +31,9 @@ Route::middleware(['cors'])->group(function () {
     Route::options('/words', function () {
         return response()->json();
     });
+    Route::options('/words/delete', function () {
+        return response()->json();
+    });
     Route::options('/words/test', function () {
         return response()->json();
     });
@@ -41,5 +44,7 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/home', 'UsersController@home')->name('Users.home');
     Route::post('/words', 'WordsController@store')->name('Words.store');
     Route::put('/words', 'WordsController@update')->name('Words.update');
+    // Route::delete('/words', 'WordsController@destroy')->name('Words.destroy');
+    Route::post('/words/delete', 'WordsController@destroy')->name('Words.destroy');
     Route::post('/words/test', 'WordsController@test')->name('Words.test');
 });

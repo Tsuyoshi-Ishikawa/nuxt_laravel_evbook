@@ -8,7 +8,7 @@
         <td>{{ word.Japanese}}</td>
         <td v-if="word.user_id === isLogin.currentUserId"><span @click="getEditWord(word)">編集</span></td>
         <td v-if="word.user_id != isLogin.currentUserId"><span @click="favoWord(word)">お気に入り</span></td>
-        <td v-if="word.user_id === isLogin.currentUserId"><span @click="getDeleteWord(word)">X</span></td>
+        <td v-if="word.user_id === isLogin.currentUserId"><span @click="deleteWord({userId: word.user_id, wordId: word.id})">X</span></td>
         <td v-if="word.user_id != isLogin.currentUserId"></td>
       </tr>
     </table>
@@ -54,8 +54,6 @@ export default {
       //queryを使うことでクエリパラメを送れる
       this.$router.push({ path: '/words/edit', query: {word: word}})
     },
-    getDeleteWord: function() {
-    },
     getCreateWord: function () {
       this.$router.push('/words/create')
     },
@@ -66,7 +64,7 @@ export default {
       this.$router.push('/words/index')
     },
     //mapActionsとすることで、index.jsの定数actionで定義されているメソッドloginを駆動?
-    ...mapActions(["resetError","isSession","getHomeInfo", "editWord", "favoWord", "deleteWord"])
+    ...mapActions(["resetError","isSession","getHomeInfo", "favoWord", "deleteWord"])
   }
 }
 </script>

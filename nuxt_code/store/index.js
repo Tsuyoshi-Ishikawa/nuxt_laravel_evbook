@@ -80,6 +80,20 @@ export const actions = {
       commit('setErrorMsg', error.message)
     }
   },
+  async deleteWord({ commit }, data) {
+    try {
+      //deleteだとなぜかlaravel側でdataが空になるので不採用
+      // const res = await this.$axios.$delete('http://0.0.0.0:23450/api/words', data);
+      const res = await this.$axios.$post('http://0.0.0.0:23450/api/words/delete', data);
+      if (res.error_message) {
+        commit('setErrorMsg', res.error_message)
+      } else {
+        commit('deleteWord', res.word_id)
+      }
+    } catch (error) {
+      commit('setErrorMsg', error.message)
+    }
+  },
   async favoWord({ commit }, data) {
   },
 }
@@ -96,6 +110,10 @@ export const mutations = {
 
   setWords(state, words) {
     state.words = words
+  },
+
+  deleteWord(state, word_id) {
+    delete state.words[word_id]
   },
 
   setTestWord(state, word) {
