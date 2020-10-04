@@ -7,7 +7,7 @@
       <tr v-for="word in words" :key="word.id">
         <td>{{ word.English }}</td>
         <td>{{ word.Japanese}}</td>
-        <td><span @click="favoWord(word)">お気に入り</span></td>
+        <td><span @click="favoWord({currentUserId: isLogin.currentUserId, wordId: word.id, type: 'add'})">お気に入り登録</span></td>
       </tr>
     </table>
   </div>
@@ -38,7 +38,7 @@ export default {
   }),
   methods: {
     //mapActionsとすることで、index.jsの定数actionで定義されているメソッドloginを駆動?
-    ...mapActions(["getHome", "resetError", "isSession", "getIndexInfo"])
+    ...mapActions(["getHome", "resetError", "isSession", "getIndexInfo", "favoWord"])
   }
 }
 </script>

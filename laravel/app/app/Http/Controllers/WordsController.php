@@ -46,18 +46,6 @@ class WordsController extends Controller
         return response()->json(['word_id' => $wordId]);
     }
 
-    // public function destroy(Request $request) {
-    //     $currentUserId = $request->session()->get('currentUserId');
-    //     $inputData = new WordDeleteInputData($currentUserId, $request->id);
-    //     $wordInteractor = new WordInteractor();
-    //     $outputData = $wordInteractor->deleteValues($inputData);
-
-    //     if ($outputData->getError()) {
-    //         $request->session()->flash('error', $outputData->getError()->getMessage());
-    //         return redirect('/home');
-    //     }
-    // }
-
     public function test(Request $request) {
         $currentUserId = $request->currentUserId;
         $wordInteractor = new WordInteractor();
@@ -77,19 +65,11 @@ class WordsController extends Controller
         $outputData = $wordInteractor->getOtherWord($currentUserId);
         $words = $outputData->getOtherWords();
         return response()->json(['words' => $words]);
-        // return view('Words.index')->with('words', $outputData->getOtherWords());
     }
 
-    // public function index(Request $request) {
-    //     $currentUserId = $request->session()->get('currentUserId');
-    //     $wordInteractor = new WordInteractor();
-    //     $outputData = $wordInteractor->getOtherWord($currentUserId);
-    //     return view('Words.index')->with('words', $outputData->getOtherWords());
-    // }
-
     public function like(Request $request) {
-        $currentUserId = $request->session()->get('currentUserId');
-        $inputData = new WordFavoInputData($currentUserId, $request->type, $request->word_id);
+        $currentUserId = $request->currentUserId;
+        $inputData = new WordFavoInputData($currentUserId, $request->type, $request->wordId);
         $wordInteractor = new WordInteractor();
         $wordInteractor->favoWord($inputData);
     }

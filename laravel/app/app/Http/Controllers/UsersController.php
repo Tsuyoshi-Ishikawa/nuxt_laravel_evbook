@@ -63,38 +63,4 @@ class UsersController extends Controller
         $words = $outputData->getAllWords();
         return response()->json(['words' => $words]);
     }
-
-    // public function home(Request $request) {
-    //     $currentUserId = $request->session()->get('currentUserId');
-    //     $userInteractor = new UserInteractor();
-    //     $outputData = $userInteractor->getAllWords($currentUserId);
-    //     $words = $outputData->getAllWords();
-    //     return view('Users.home')->with([
-    //         'currentUserId' => $currentUserId,
-    //         'words' => $words,
-    //     ]);
-    // }
-
-    //ユーザー検索機能(cleanArcでは未実装)
-    // public function search() {
-    //     return view('Users.search');
-    // }
-
-    // public function searchUser(Request $request) {
-    //     if ($keyWord = $request->search_word) {
-    //         User::searchUser($keyWord);
-    //     }
-    // }
-
-    // public function show(int $id) {
-    //     $user = User::selectUser($id);
-    //     if ($user) {
-    //         $words = $user->getAllWords();
-    //         return view('Users.show')->with([
-    //             'user' => $user,
-    //             'words' => $words,
-    //         ]);
-    //     }
-    //     return view('Users.search');
-    // }
 }

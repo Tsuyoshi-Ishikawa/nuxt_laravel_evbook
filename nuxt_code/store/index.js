@@ -104,6 +104,11 @@ export const actions = {
     }
   },
   async favoWord({ commit }, data) {
+    try {
+      const res = await this.$axios.$post('http://0.0.0.0:23450/api/words/like', data);
+    } catch (error) {
+      commit('setErrorMsg', error.message)
+    }
   },
 }
 

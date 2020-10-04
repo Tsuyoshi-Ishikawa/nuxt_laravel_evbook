@@ -7,7 +7,7 @@
         <td>{{ word.English }}</td>
         <td>{{ word.Japanese}}</td>
         <td v-if="word.user_id === isLogin.currentUserId"><span @click="getEditWord(word)">編集</span></td>
-        <td v-if="word.user_id != isLogin.currentUserId"><span @click="favoWord(word)">お気に入り</span></td>
+        <td v-if="word.user_id != isLogin.currentUserId"><span @click="favoWord({currentUserId: isLogin.currentUserId, wordId: word.id, type: 'remove'})">お気に入り解除</span></td>
         <td v-if="word.user_id === isLogin.currentUserId"><span @click="deleteWord({userId: word.user_id, wordId: word.id})">X</span></td>
         <td v-if="word.user_id != isLogin.currentUserId"></td>
       </tr>

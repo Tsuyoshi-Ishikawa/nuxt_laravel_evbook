@@ -40,6 +40,9 @@ Route::middleware(['cors'])->group(function () {
     Route::options('/words/index', function () {
         return response()->json();
     });
+    Route::options('/words/like', function () {
+        return response()->json();
+    });
 
     Route::post('/register', 'UsersController@registerConfirm')->name('Users.registerConfirm');
     Route::post('/login', 'UsersController@loginConfirm')->name('Users.loginConfirm');
@@ -50,4 +53,5 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/words/delete', 'WordsController@destroy')->name('Words.destroy');
     Route::post('/words/test', 'WordsController@test')->name('Words.test');
     Route::post('/words/index', 'WordsController@index')->name('Words.index');
+    Route::post('/words/like', 'WordsController@like')->name('Words.like');
 });
