@@ -54,6 +54,15 @@ export const actions = {
       commit('setErrorMsg', error.message)
     }
   },
+  async getIndexInfo({ commit }, data) {
+    try {
+      const res = await this.$axios.$post('http://0.0.0.0:23450/api/words/index', data);
+      console.log(res)
+      commit('setOtherWords', res.words)
+    } catch (error) {
+      commit('setErrorMsg', error.message)
+    }
+  },
   async resetError({ commit }) {
     commit('resetErrorMsg')
   },
@@ -112,6 +121,10 @@ export const mutations = {
     state.words = words
   },
 
+  setOtherWords(state, words) {
+    state.otherWords = words
+  },
+
   deleteWord(state, word_id) {
     delete state.words[word_id]
   },
@@ -140,5 +153,6 @@ export const state = () => ({
   error_message: "",
   current_user_id: 0,
   words: {},
+  otherWords: {},
   test_word: {}
 })

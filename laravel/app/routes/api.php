@@ -37,14 +37,17 @@ Route::middleware(['cors'])->group(function () {
     Route::options('/words/test', function () {
         return response()->json();
     });
+    Route::options('/words/index', function () {
+        return response()->json();
+    });
 
     Route::post('/register', 'UsersController@registerConfirm')->name('Users.registerConfirm');
     Route::post('/login', 'UsersController@loginConfirm')->name('Users.loginConfirm');
-
     Route::post('/home', 'UsersController@home')->name('Users.home');
     Route::post('/words', 'WordsController@store')->name('Words.store');
     Route::put('/words', 'WordsController@update')->name('Words.update');
     // Route::delete('/words', 'WordsController@destroy')->name('Words.destroy');
     Route::post('/words/delete', 'WordsController@destroy')->name('Words.destroy');
     Route::post('/words/test', 'WordsController@test')->name('Words.test');
+    Route::post('/words/index', 'WordsController@index')->name('Words.index');
 });

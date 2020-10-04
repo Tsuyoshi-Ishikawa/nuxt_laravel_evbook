@@ -61,7 +61,8 @@ export default {
       this.$router.push('/words/test')
     },
     getIndexWords: function () {
-      this.$router.push('/words/index')
+      //これでwords/indexに飛ぶ
+      this.$router.push('/words')
     },
     //mapActionsとすることで、index.jsの定数actionで定義されているメソッドloginを駆動?
     ...mapActions(["resetError","isSession","getHomeInfo", "favoWord", "deleteWord"])

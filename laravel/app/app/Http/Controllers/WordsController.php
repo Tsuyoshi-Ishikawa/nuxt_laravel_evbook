@@ -70,12 +70,22 @@ class WordsController extends Controller
         return response()->json(['word' => ['Japanese' => $outputData->getJapanese(), 'English' => $outputData->getEnglish()]]);
     }
 
+
     public function index(Request $request) {
-        $currentUserId = $request->session()->get('currentUserId');
+        $currentUserId = $request->currentUserId;
         $wordInteractor = new WordInteractor();
         $outputData = $wordInteractor->getOtherWord($currentUserId);
-        return view('Words.index')->with('words', $outputData->getOtherWords());
+        $words = $outputData->getOtherWords();
+        return response()->json(['words' => $words]);
+        // return view('Words.index')->with('words', $outputData->getOtherWords());
     }
+
+    // public function index(Request $request) {
+    //     $currentUserId = $request->session()->get('currentUserId');
+    //     $wordInteractor = new WordInteractor();
+    //     $outputData = $wordInteractor->getOtherWord($currentUserId);
+    //     return view('Words.index')->with('words', $outputData->getOtherWords());
+    // }
 
     public function like(Request $request) {
         $currentUserId = $request->session()->get('currentUserId');
