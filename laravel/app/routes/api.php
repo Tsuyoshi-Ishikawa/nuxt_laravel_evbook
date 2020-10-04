@@ -40,5 +40,6 @@ Route::middleware(['cors'])->group(function () {
 
     Route::post('/home', 'UsersController@home')->name('Users.home');
     Route::post('/words', 'WordsController@store')->name('Words.store');
+    Route::put('/words', 'WordsController@update')->name('Words.update');
     Route::post('/words/test', 'WordsController@test')->name('Words.test');
 });

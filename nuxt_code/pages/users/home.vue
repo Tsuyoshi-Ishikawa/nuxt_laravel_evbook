@@ -6,9 +6,9 @@
       <tr v-for="word in words" :key="word.id">
         <td>{{ word.English }}</td>
         <td>{{ word.Japanese}}</td>
-        <td v-if="word.user_id === isLogin.currentUserId"><span @click="editWord(word)">編集</span></td>
+        <td v-if="word.user_id === isLogin.currentUserId"><span @click="getEditWord(word)">編集</span></td>
         <td v-if="word.user_id != isLogin.currentUserId"><span @click="favoWord(word)">お気に入り</span></td>
-        <td v-if="word.user_id === isLogin.currentUserId"><span @click="deleteWord(word)">X</span></td>
+        <td v-if="word.user_id === isLogin.currentUserId"><span @click="getDeleteWord(word)">X</span></td>
         <td v-if="word.user_id != isLogin.currentUserId"></td>
       </tr>
     </table>
@@ -50,6 +50,12 @@ export default {
     this.getHomeInfo(this.isLogin)
   },
   methods: {
+    getEditWord: function(word) {
+      //queryを使うことでクエリパラメを送れる
+      this.$router.push({ path: '/words/edit', query: {word: word}})
+    },
+    getDeleteWord: function() {
+    },
     getCreateWord: function () {
       this.$router.push('/words/create')
     },

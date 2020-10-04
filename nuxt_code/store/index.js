@@ -72,11 +72,15 @@ export const actions = {
     }
   },
   async editWord({ commit }, data) {
-    // this.$router.push({ path: '/word/edit', params: { userId } })
+    try {
+      const res = await this.$axios.$put('http://0.0.0.0:23450/api/words', data);
+      console.log(res)
+      this.$router.push('/users/home')
+    } catch (error) {
+      commit('setErrorMsg', error.message)
+    }
   },
   async favoWord({ commit }, data) {
-  },
-  async deleteWord({ commit }, data) {
   },
 }
 

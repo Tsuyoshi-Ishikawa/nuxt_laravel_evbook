@@ -15,11 +15,6 @@ use App\Http\UseCases\Interactors\WordInteractor;
 
 class WordsController extends Controller
 {
-    // public function create() {
-    //     return view('Words.create');
-    // }
-
-
     public function store(Request $request) {
 
         $currentUserId = $request->userId;
@@ -29,26 +24,19 @@ class WordsController extends Controller
         return response()->json(['response' => 'OK']);
     }
 
-    // public function store(WordStore $request) {
-    //     $currentUserId = $request->session()->get('currentUserId');
-    //     $inputData = new WordStoreInputData($currentUserId, $request->English, $request->Japanese);
-    //     $wordInteractor = new WordInteractor();
-    //     $wordInteractor->setValues($inputData);
-    //     return redirect('/home');
-    // }
-
     public function edit(int $id) {
         $wordInteractor = new WordInteractor();
         $word = $wordInteractor->getWord($id);
         return view('Words.edit')->with('word', $word);
     }
 
-    public function update(WordStore $request,int $wordId) {
-        $currentUserId = $request->session()->get('currentUserId');
+    public function update(Request $request) {
+        $currentUserId = $request->userId;
+        $wordId = $request->wordId;
         $inputData = new WordUpdateInputData($currentUserId, $wordId, $request->English, $request->Japanese);
         $wordInteractor = new WordInteractor();
         $wordInteractor->updateValues($inputData);
-        return redirect('/home');
+        return response()->json(['response' => 'OK']);
     }
 
     public function destroy(Request $request) {
