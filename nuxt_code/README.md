@@ -1,7 +1,7 @@
 # nuxt_code
 
 ## 設定
-dockerfileでhostとport設定をしたので、nuxtで受け取れるように変更する
+dockerfileでhostとport設定をしたので、その設定にしてnuxtで受け取れるように変更している
 
 ```javascript
 
@@ -12,6 +12,14 @@ dockerfileでhostとport設定をしたので、nuxtで受け取れるように�
   }
   
 ```
+
+## 行ったこと
+- stateにuser_idを保存してsessionぽくしてる
+ホントはnuxtのライブラリを使ってやるのがいいっぽい
+
+
+## できていないこと
+- inputに対するバリデーション。基本バリデーションはlaravel側でやる予定
 
 ## Build Setup
 
