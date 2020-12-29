@@ -34,7 +34,7 @@ export default {
     '@nuxtjs/proxy'
   ],
 
-  //バックエンドのipを指定する
+  //バックエンドのipを指定する(nginx(laradock_nginx)のportを指定)
   axios: {
     baseURL: 'http://0.0.0.0:23450/api',
   },

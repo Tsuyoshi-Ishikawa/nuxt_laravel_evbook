@@ -15,8 +15,9 @@ class Cors
      */
     public function handle($request, Closure $next)
     {
+        // Access-Control-Allow-Originがhttp://0.0.0.0ではうまくいかなかったので*に変更
         return $next($request)
-        ->header('Access-Control-Allow-Origin', 'http://0.0.0.0')
+        ->header('Access-Control-Allow-Origin', '*')
         ->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
         ->header('Access-Control-Allow-Headers', 'Content-Type');
     }
